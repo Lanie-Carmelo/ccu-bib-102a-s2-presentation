@@ -11,12 +11,13 @@ Built for blind and sighted students alike, this template provides an accessible
 
 This repository provides a ready-to-use template for creating accessible academic presentations using LaTeX Beamer with APA 7th edition citation style. It emphasizes accessibility through semantic structure, presenter notes, and PDF/UA compliance. This template uses biblatex with the biber backend (not BibTeX). It includes:
 
+
 - `presentation.tex`: Main Beamer presentation with semantic structure, presenter notes, and PDF/UA tagging
 - `presentation-notes.tex`: Wrapper for building presentation with notes visible below slides
 - `presentation-handout.tex`: Wrapper for building 4-slides-per-page handout format
 - `apa.csl`: Citation Style Language file for APA 7th edition (used by Pandoc)
-- `Makefile`: Build system for presentations (standard, notes, handout) and paper formats
-- `references.bib`: Shared bibliography for both presentations and papers
+- `Makefile`: Build system for presentations (standard, notes, handout)
+- `references.bib`: Shared bibliography for presentations
 - `.gitignore`: Ignores LaTeX build artifacts and editor backups
 - `LICENSE`: MIT License
 
@@ -34,6 +35,7 @@ This template is designed for students, researchers, and accessibility advocates
 - Work locally or in Overleaf
 
 ## Accessibility Tools Used
+
 
 This template was built with screen readers like NVDA and JAWS using Microsoft Visual Studio Code with accessible editing practices.
 

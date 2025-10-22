@@ -13,6 +13,8 @@
 % NOTE: This template uses biblatex with the biber backend.
 %       Compile with LuaLaTeX for best results and font support.
 
+% !TeX root = presentation.tex
+
 \DocumentMetadata{
   lang=en-US,
   pdfversion=1.7,
@@ -75,10 +77,11 @@
 % ===== ACCESSIBILITY AND METADATA =====
 \usepackage{hyperref}
 \hypersetup{
-  pdftitle={Presentation Title},
+  pdftitle={Session 2: The Life of Jesus and the Four Gospels},
   pdfauthor={Lanie Molinar},
-  pdfsubject={Academic Presentation},
-  pdfkeywords={APA, Beamer, Accessibility, Presentation},
+  pdfsubject={New Testament},
+  pdfkeywords={APA, Beamer, Accessibility, Presentation, Academic, Template,
+  Colorado Christian University, Bible, New Testament, Jesus, Gospels},
   pdflang={en-US},
   colorlinks=true,
   linkcolor=blue,
@@ -90,7 +93,7 @@
 
 % ===== NOTES AND HANDOUT CONFIGURATION =====
 % Conditional compilation for different output modes
-\ifdefined\handoutmode
+\ifdefined\handoutmode%
   % Handout mode: 4 slides per page, no overlays
   \PassOptionsToClass{handout}{beamer}
   \AtBeginDocument{%
@@ -99,7 +102,7 @@
   }
 \fi
 
-\ifdefined\withnotes
+\ifdefined\withnotes%
   % Notes mode: show notes below slides
   \setbeameroption{show notes}
 \else
@@ -108,21 +111,20 @@
 \fi
 
 % ===== PRESENTATION METADATA =====
-\title{Your Presentation Title}
-\subtitle{Optional Subtitle}
+\title{The Life of Christ and the Four Gospels}
+\subtitle{A Journey Through Jesus's Ministry and His Presentation in Scripture}
 \author{Lanie Molinar}
 \institute{Colorado Christian University}
-\date{\today}
+\date{October 21, 2025}
 
 % ===== DOCUMENT STRUCTURE =====
 \begin{document}
 
 % ===== TITLE FRAME =====
 \begin{frame}
-  \titlepage
+  	itlepage
   \note{
-    Welcome message and opening remarks.
-    Introduce yourself and the topic.
+    Welcome everyone! My name is Lanie Molinar, and today we’ll explore the life and ministry of Jesus Christ and how He is presented in the four gospels. This presentation is designed for middle school students, so feel free to ask questions as we go.
     Duration: 30 seconds.
   }
 \end{frame}
@@ -131,46 +133,47 @@
 \begin{frame}{Outline}
   \tableofcontents
   \note{
-    Overview of presentation structure.
-    Explain the flow of the talk.
+    This slide shows the main topics we’ll cover today. We’ll start by looking at where Jesus ministered, then explore how each gospel writer presents Him. We’ll also discuss what Jesus taught and did, and how He fulfilled the Old Covenant. At the end, I’ll share references and answer any questions you have. Feel free to ask questions at any time!
     Duration: 1 minute.
   }
 \end{frame}
 
-% ===== SECTION 1: INTRODUCTION =====
-\section{Introduction}
+% ===== Where Did Jesus Minister? =====
+\section{Where Did Jesus Minister?}
 
-\begin{frame}{Introduction to the Topic}
-  \framesubtitle{Setting the Context}
-  
-  \begin{itemize}
-    \item First key point about the topic
-    \item Second important concept
-    \item Third foundational idea
-  \end{itemize}
-  
+\begin{frame}{Geographical Context}
+  \framesubtitle{Regions of Jesus's Ministry}
+
+  \begin{figure}
+    \centering
+  \includegraphics[width=0.8\textwidth]{images/israel-map.jpg}
+  \caption{Map of Galilee, Judea, and Samaria, showing Jesus’s ministry regions and tribal divisions. Adapted from \textcite{bowenAccurateMapHoly}}
+  \end{figure}
+
   \note{
-    Explain the background and motivation for this topic.
-    Connect to audience's existing knowledge.
-    Mention why this matters.
-    Duration: 2-3 minutes.
+  According to \textcite{elwellEncounteringNewTestament2022}, Jesus (see Chapter 8)
+    ministered first in Galilee, then moved toward a Phoenician region near
+    Tyre. He later traveled to Judea, including Jerusalem, and also ministered
+    in Perea across the Jordan River. This map shows these regions and the
+    tribal divisions of Israel.
+  Duration: 2--3 minutes.
   }
 \end{frame}
 
 \begin{frame}{Research Question}
-  
+
   \begin{block}{Central Question}
     What is the main research question or problem being addressed?
   \end{block}
-  
-  \pause
-  
+
+  \pause%
+
   \begin{itemize}
     \item Why this question matters
     \item Current gaps in knowledge
     \item Expected contributions
   \end{itemize}
-  
+
   \note{
     State the research question clearly.
     Explain its significance.
@@ -180,175 +183,4 @@
 \end{frame}
 
 % ===== SECTION 2: LITERATURE REVIEW =====
-\section{Literature Review}
-
-\begin{frame}{Previous Research}
-  \framesubtitle{Key Studies in the Field}
-  
-  \begin{itemize}
-    \item \textcite{smith2020} found that faith and reason are complementary
-    \item \textcite{mounce2021} argues for biblical reliability
-    \item \textcite{doe2021} examines theological perspectives
-  \end{itemize}
-  
-  \pause
-  
-  \begin{block}{Research Gap}
-    Despite these contributions, there remains a need for...
-  \end{block}
-  
-  \note{
-    Summarize relevant literature.
-    Highlight key findings and debates.
-    Explain how your work builds on or differs from prior research.
-    Duration: 3 minutes.
-  }
-\end{frame}
-
-% ===== SECTION 3: METHODOLOGY =====
-\section{Methodology}
-
-\begin{frame}{Research Approach}
-  \framesubtitle{Methods and Design}
-  
-  \begin{enumerate}
-    \item Data collection methods
-    \item Analysis procedures
-    \item Validation strategies
-  \end{enumerate}
-  
-  \note{
-    Explain your methodological approach.
-    Justify your choices.
-    Mention any limitations or challenges.
-    Duration: 2-3 minutes.
-  }
-\end{frame}
-
-% ===== SECTION 4: FINDINGS =====
-\section{Findings}
-
-\begin{frame}{Key Results}
-  
-  \begin{columns}[t]
-    \begin{column}{0.5\textwidth}
-      \textbf{Finding 1}
-      \begin{itemize}
-        \item Detail A
-        \item Detail B
-      \end{itemize}
-    \end{column}
-    
-    \begin{column}{0.5\textwidth}
-      \textbf{Finding 2}
-      \begin{itemize}
-        \item Detail C
-        \item Detail D
-      \end{itemize}
-    \end{column}
-  \end{columns}
-  
-  \note{
-    Present main findings.
-    Use clear, accessible language.
-    Connect results to research question.
-    Duration: 3-4 minutes.
-  }
-\end{frame}
-
-\begin{frame}{Interpretation}
-  
-  \begin{block}{What This Means}
-    Interpretation of the findings in context of existing literature
-  \end{block}
-  
-  \begin{itemize}
-    \item Theoretical implications
-    \item Practical applications
-    \item Unexpected outcomes
-  \end{itemize}
-  
-  \note{
-    Analyze and interpret results.
-    Connect to broader themes.
-    Acknowledge limitations.
-    Duration: 2-3 minutes.
-  }
-\end{frame}
-
-% ===== SECTION 5: CONCLUSION =====
-\section{Conclusion}
-
-\begin{frame}{Summary}
-  
-  \textbf{Main Takeaways:}
-  \begin{enumerate}
-    \item First key conclusion
-    \item Second important finding
-    \item Third significant insight
-  \end{enumerate}
-  
-  \vspace{1em}
-  
-  \textbf{Future Directions:}
-  \begin{itemize}
-    \item Next steps for research
-    \item Unanswered questions
-  \end{itemize}
-  
-  \note{
-    Summarize main points.
-    Emphasize contributions.
-    Suggest future research directions.
-    Duration: 2 minutes.
-  }
-\end{frame}
-
-% ===== REFERENCES =====
-\begin{frame}[allowframebreaks]{References}
-  \printbibliography[heading=none]
-  \note{
-    References are available for questions.
-    Point out key sources if asked.
-  }
-\end{frame}
-
-% ===== QUESTIONS =====
-\begin{frame}{Questions?}
-  
-  \begin{center}
-    \Large Thank you for your attention!
-    
-    \vspace{2em}
-    
-    \normalsize
-    Contact: your.email@ccu.edu
-  \end{center}
-  
-  \note{
-    Be ready to answer questions.
-    Have backup slides prepared if needed.
-    Reiterate main message if appropriate.
-  }
-\end{frame}
-
-% ===== APPENDIX (BACKUP SLIDES) =====
-\appendix
-
-\section{Appendix}
-
-\begin{frame}[noframenumbering]{Additional Details}
-  
-  \begin{itemize}
-    \item Supplementary information
-    \item Detailed methodology notes
-    \item Extended data or analysis
-  \end{itemize}
-  
-  \note{
-    Use these slides only if questions arise.
-    Have specific examples ready.
-  }
-\end{frame}
-
 \end{document}
