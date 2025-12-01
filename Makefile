@@ -5,6 +5,8 @@ PRESFILE = $(PRESENTATION).tex
 BIBFILE = references.bib
 OUTPUT_DIR = output
 SUBMISSIONS_DIR = submissions
+CSL_FILE = apa.csl
+LUA_FILTER = add-refs-heading.lua
 
 # Create submissions directory
 submissions-dir:
@@ -67,9 +69,9 @@ html: | $(OUTPUT_DIR)
 		--standalone \
 		--citeproc \
 		--bibliography=$(BIBFILE) \
-		--csl=apa.csl \
+		--csl=$(CSL_FILE) \
 		--metadata lang=en-US \
-		--lua-filter=add-refs-heading.lua
+		--lua-filter=$(LUA_FILTER)
 	@echo "✅ HTML saved to $(OUTPUT_DIR)/$(PRESENTATION).html"
 
 # Build DOCX from presentation using Pandoc
@@ -77,8 +79,8 @@ docx: | $(OUTPUT_DIR)
 	pandoc $(PRESFILE) -o $(OUTPUT_DIR)/$(PRESENTATION).docx \
 		--citeproc \
 		--bibliography=$(BIBFILE) \
-		--csl=apa.csl \
-		--lua-filter=add-refs-heading.lua
+		--csl=$(CSL_FILE) \
+		--lua-filter=$(LUA_FILTER)
 	@echo "✅ DOCX saved to $(OUTPUT_DIR)/$(PRESENTATION).docx"
 
 
@@ -103,8 +105,8 @@ submissions: submissions-presentation
 lint:
 	@echo "Running chktex on presentation files..."
 	-chktex -q $(PRESFILE)
-	-chktex -q presentation-notes.tex
-	-chktex -q presentation-handout.tex
+	-chktex -q $(PRESENTATION)-notes.tex
+	-chktex -q $(PRESENTATION)-handout.tex
 	@echo "Lint complete."
 
 # Status target - show output file information
