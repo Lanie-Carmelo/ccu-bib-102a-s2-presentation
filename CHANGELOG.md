@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added `build` target to create PDF, HTML, and DOCX versions in one command
+- Added `view` as alias for `view-presentation`
+- Added `submissions` as alias for `submissions-presentation`
+- Added `html` target to build HTML version using Pandoc
+- Added `docx` target to build DOCX version using Pandoc
+- Added `lint` target to run chktex on presentation files
+- Added `status` target to show output file information
+
+### Changed
+- Updated Makefile to be presentation-only (removed paper-specific targets)
+- Added `CSL_FILE` and `LUA_FILTER` variables for maintainability
+- Updated `help` target to reflect all available presentation targets
+- Updated README.md to reflect presentation-only targets and remove paper references
+
 ## [1.0.4] - 2025-10-20
 
 ### Added
