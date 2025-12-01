@@ -1,4 +1,4 @@
-# Simplified Makefile for LaTeX project with Pandoc output
+# Makefile for Beamer presentation
 
 PRESENTATION = presentation
 PRESFILE = $(PRESENTATION).tex
@@ -50,13 +50,36 @@ presentation-handout: | $(OUTPUT_DIR)
 
 
 
-# Open presentation PDF
+# Open presentation PDF (alias: view)
 view-presentation:
 	@if [ -f $(OUTPUT_DIR)/$(PRESENTATION).pdf ]; then \
 		sh -c 'cmd.exe /c start "" "$$(wslpath -w $(OUTPUT_DIR)/$(PRESENTATION).pdf)"'; \
 	else \
 		echo "Error: Presentation PDF not found. Run 'make presentation' first."; \
 	fi
+
+# Alias for view-presentation
+view: view-presentation
+
+# Build HTML from presentation using Pandoc
+html: | $(OUTPUT_DIR)
+	pandoc $(PRESFILE) -o $(OUTPUT_DIR)/$(PRESENTATION).html \
+		--standalone \
+		--citeproc \
+		--bibliography=$(BIBFILE) \
+		--csl=apa.csl \
+		--metadata lang=en-US \
+		--lua-filter=add-refs-heading.lua
+	@echo "✅ HTML saved to $(OUTPUT_DIR)/$(PRESENTATION).html"
+
+# Build DOCX from presentation using Pandoc
+docx: | $(OUTPUT_DIR)
+	pandoc $(PRESFILE) -o $(OUTPUT_DIR)/$(PRESENTATION).docx \
+		--citeproc \
+		--bibliography=$(BIBFILE) \
+		--csl=apa.csl \
+		--lua-filter=add-refs-heading.lua
+	@echo "✅ DOCX saved to $(OUTPUT_DIR)/$(PRESENTATION).docx"
 
 
 
@@ -72,6 +95,32 @@ view-presentation:
 submissions-presentation: presentation | submissions-dir
 	cp $(OUTPUT_DIR)/$(PRESENTATION).pdf $(SUBMISSIONS_DIR)/$(PRESENTATION)-$(shell date +%Y%m%d-%H%M).pdf
 	@echo "✅ Presentation saved to $(SUBMISSIONS_DIR)/$(PRESENTATION)-$(shell date +%Y%m%d-%H%M).pdf"
+
+# Alias for submissions-presentation
+submissions: submissions-presentation
+
+# Lint target - run LaTeX linter
+lint:
+	@echo "Running chktex on presentation files..."
+	-chktex -q $(PRESFILE)
+	-chktex -q presentation-notes.tex
+	-chktex -q presentation-handout.tex
+	@echo "Lint complete."
+
+# Status target - show output file information
+status:
+	@echo "Output file status:"
+	@echo ""
+	@if [ -d $(OUTPUT_DIR) ]; then \
+		ls -lh $(OUTPUT_DIR)/*.pdf 2>/dev/null || echo "  No PDF files found in $(OUTPUT_DIR)/"; \
+	else \
+		echo "  Output directory does not exist. Run 'make presentation' first."; \
+	fi
+	@echo ""
+	@if [ -d $(SUBMISSIONS_DIR) ]; then \
+		echo "Submissions:"; \
+		ls -lh $(SUBMISSIONS_DIR)/*.pdf 2>/dev/null || echo "  No submissions found."; \
+	fi
 
 # Clean target - remove intermediate files
 clean:
@@ -92,29 +141,23 @@ $(OUTPUT_DIR):
 help:
 	@echo "Available targets:"
 	@echo ""
-	@echo "Paper targets:"
-	@echo "  pdf          - Build paper PDF using LaTeX"
-	@echo "  pdf-pandoc   - Build paper PDF using Pandoc"
-	@echo "  html         - Build HTML using Pandoc"
-	@echo "  docx         - Build DOCX using Pandoc"
-	@echo "  view         - Open paper PDF in default viewer"
-	@echo "  submissions  - Copy paper PDF to submissions folder"
-	@echo ""
 	@echo "Presentation targets:"
-	@echo "  presentation         - Build presentation (no notes)"
+	@echo "  presentation         - Build presentation PDF (no notes)"
 	@echo "  presentation-notes   - Build presentation with notes below slides"
 	@echo "  presentation-handout - Build handout version (4 slides per page)"
-	@echo "  view-presentation    - Open presentation PDF"
-	@echo "  submissions-presentation - Copy presentation to submissions folder"
+	@echo "  html                 - Build HTML version using Pandoc"
+	@echo "  docx                 - Build DOCX version using Pandoc"
+	@echo "  view                 - Open presentation PDF in default viewer"
+	@echo "  view-presentation    - Open presentation PDF (same as view)"
+	@echo "  submissions          - Copy presentation PDF to submissions folder"
+	@echo "  submissions-presentation - Copy presentation PDF (same as submissions)"
 	@echo ""
 	@echo "Utility targets:"
-	@echo "  all          - Build paper PDF, HTML, and DOCX"
-	@echo "  build        - Lint, build paper PDF, and view"
-	@echo "  watch        - Watch for changes and rebuild"
-	@echo "  lint         - Run LaTeX linter"
+	@echo "  all          - Build all presentation versions (PDF, notes, handout)"
+	@echo "  lint         - Run LaTeX linter (chktex)"
 	@echo "  status       - Show output file information"
 	@echo "  clean        - Remove intermediate files"
 	@echo "  distclean    - Remove all generated files"
 	@echo "  help         - Show this help message"
 
-.PHONY: all presentation presentation-notes presentation-handout clean distclean view-presentation submissions-presentation submissions-dir help
+.PHONY: all presentation presentation-notes presentation-handout html docx view view-presentation submissions submissions-presentation submissions-dir lint status clean distclean help
