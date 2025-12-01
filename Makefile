@@ -101,6 +101,10 @@ submissions-presentation: presentation | submissions-dir
 # Alias for submissions-presentation
 submissions: submissions-presentation
 
+# Build target - create PDF, HTML, and DOCX versions
+build: presentation html docx
+	@echo "✅ Build complete: PDF, HTML, and DOCX created in $(OUTPUT_DIR)/"
+
 # Lint target - run LaTeX linter
 lint:
 	@echo "Running chktex on presentation files..."
@@ -156,10 +160,11 @@ help:
 	@echo ""
 	@echo "Utility targets:"
 	@echo "  all          - Build all presentation versions (PDF, notes, handout)"
+	@echo "  build        - Build PDF, HTML, and DOCX versions"
 	@echo "  lint         - Run LaTeX linter (chktex)"
 	@echo "  status       - Show output file information"
 	@echo "  clean        - Remove intermediate files"
 	@echo "  distclean    - Remove all generated files"
 	@echo "  help         - Show this help message"
 
-.PHONY: all presentation presentation-notes presentation-handout html docx view view-presentation submissions submissions-presentation submissions-dir lint status clean distclean help
+.PHONY: all presentation presentation-notes presentation-handout html docx view view-presentation submissions submissions-presentation submissions-dir build lint status clean distclean help
