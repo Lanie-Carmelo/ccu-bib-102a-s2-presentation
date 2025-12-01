@@ -15,12 +15,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `docx` target to build DOCX version using Pandoc
 - Added `lint` target to run chktex on presentation files
 - Added `status` target to show output file information
+- Added `quick` target for fast single-pass builds during development
+- Added `watch` target to auto-rebuild on file changes
+- Added `check` target to display PDF metadata and file info
 
 ### Changed
 - Updated Makefile to be presentation-only (removed paper-specific targets)
 - Added `CSL_FILE` and `LUA_FILTER` variables for maintainability
 - Updated `help` target to reflect all available presentation targets
 - Updated README.md to reflect presentation-only targets and remove paper references
+- Made `view` target cross-platform (works on WSL, Linux, and macOS)
 
 ## [1.0.4] - 2025-10-20
 

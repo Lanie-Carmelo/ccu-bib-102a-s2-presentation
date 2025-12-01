@@ -73,6 +73,9 @@ The provided `Makefile` automates compilation of presentations and papers.
 |---------------|-----------------------------------------------------------------------------|
 | `all`         | Builds all presentation versions (PDF, notes, handout).                     |
 | `build`       | Builds PDF, HTML, and DOCX versions.                                        |
+| `quick`       | Quick single-pass build (no biber, faster iteration).                       |
+| `watch`       | Watches for file changes and auto-rebuilds.                                 |
+| `check`       | Shows PDF metadata and file info.                                           |
 | `lint`        | Runs `chktex` on presentation files.                                        |
 | `status`      | Lists output file sizes and last modified times.                            |
 | `clean`       | Removes LaTeX build artifacts.                                              |

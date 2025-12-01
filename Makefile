@@ -52,10 +52,18 @@ presentation-handout: | $(OUTPUT_DIR)
 
 
 
-# Open presentation PDF (alias: view)
+# Open presentation PDF (cross-platform)
 view-presentation:
 	@if [ -f $(OUTPUT_DIR)/$(PRESENTATION).pdf ]; then \
-		sh -c 'cmd.exe /c start "" "$$(wslpath -w $(OUTPUT_DIR)/$(PRESENTATION).pdf)"'; \
+		if command -v wslpath >/dev/null 2>&1; then \
+			cmd.exe /c start "" "$$(wslpath -w $(OUTPUT_DIR)/$(PRESENTATION).pdf)"; \
+		elif command -v xdg-open >/dev/null 2>&1; then \
+			xdg-open $(OUTPUT_DIR)/$(PRESENTATION).pdf; \
+		elif command -v open >/dev/null 2>&1; then \
+			open $(OUTPUT_DIR)/$(PRESENTATION).pdf; \
+		else \
+			echo "PDF is at: $(OUTPUT_DIR)/$(PRESENTATION).pdf"; \
+		fi; \
 	else \
 		echo "Error: Presentation PDF not found. Run 'make presentation' first."; \
 	fi
@@ -104,6 +112,35 @@ submissions: submissions-presentation
 # Build target - create PDF, HTML, and DOCX versions
 build: presentation html docx
 	@echo "✅ Build complete: PDF, HTML, and DOCX created in $(OUTPUT_DIR)/"
+
+# Quick build - single pass for faster iteration (no bibliography update)
+quick: | $(OUTPUT_DIR)
+	lualatex -output-directory=$(OUTPUT_DIR) $(PRESFILE)
+	@echo "✅ Quick build complete (single pass, no biber)"
+
+# Watch target - auto-rebuild on file changes
+watch:
+	@echo "Watching for changes to .tex and .bib files..."
+	@echo "Press Ctrl+C to stop."
+	@while true; do \
+		inotifywait -q -e modify $(PRESFILE) $(BIBFILE) $(PRESENTATION)-notes.tex $(PRESENTATION)-handout.tex 2>/dev/null || \
+		fswatch -1 $(PRESFILE) $(BIBFILE) $(PRESENTATION)-notes.tex $(PRESENTATION)-handout.tex 2>/dev/null || \
+		(echo "Install inotify-tools (Linux) or fswatch (macOS) for watch functionality" && exit 1); \
+		echo "Change detected, rebuilding..."; \
+		$(MAKE) presentation; \
+	done
+
+# Check target - validate PDF and show metadata
+check:
+	@if [ -f $(OUTPUT_DIR)/$(PRESENTATION).pdf ]; then \
+		echo "PDF Metadata:"; \
+		pdfinfo $(OUTPUT_DIR)/$(PRESENTATION).pdf 2>/dev/null || echo "  (pdfinfo not installed)"; \
+		echo ""; \
+		echo "File size: $$(ls -lh $(OUTPUT_DIR)/$(PRESENTATION).pdf | awk '{print $$5}')"; \
+		echo "Page count: $$(pdfinfo $(OUTPUT_DIR)/$(PRESENTATION).pdf 2>/dev/null | grep Pages | awk '{print $$2}' || echo 'unknown')"; \
+	else \
+		echo "Error: PDF not found. Run 'make presentation' first."; \
+	fi
 
 # Lint target - run LaTeX linter
 lint:
@@ -161,10 +198,13 @@ help:
 	@echo "Utility targets:"
 	@echo "  all          - Build all presentation versions (PDF, notes, handout)"
 	@echo "  build        - Build PDF, HTML, and DOCX versions"
+	@echo "  quick        - Quick single-pass build (no biber, faster iteration)"
+	@echo "  watch        - Watch for changes and auto-rebuild"
+	@echo "  check        - Show PDF metadata and file info"
 	@echo "  lint         - Run LaTeX linter (chktex)"
 	@echo "  status       - Show output file information"
 	@echo "  clean        - Remove intermediate files"
 	@echo "  distclean    - Remove all generated files"
 	@echo "  help         - Show this help message"
 
-.PHONY: all presentation presentation-notes presentation-handout html docx view view-presentation submissions submissions-presentation submissions-dir build lint status clean distclean help
+.PHONY: all presentation presentation-notes presentation-handout html docx view view-presentation submissions submissions-presentation submissions-dir build quick watch check lint status clean distclean help
