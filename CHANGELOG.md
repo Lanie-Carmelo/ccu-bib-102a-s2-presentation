@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated `help` target to reflect all available presentation targets
 - Updated README.md to reflect presentation-only targets and remove paper references
 - Made `view` target cross-platform (works on WSL, Linux, and macOS)
+- Updated `.github/workflows/build.yml` to use presentation targets instead of paper targets
 
 ## [1.0.4] - 2025-10-20
 
