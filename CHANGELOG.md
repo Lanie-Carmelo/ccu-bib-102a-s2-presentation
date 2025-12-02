@@ -29,6 +29,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Made `view` target cross-platform (works on WSL, Linux, and macOS)
 - Updated `.github/workflows/build.yml` to use presentation targets instead of paper targets
 
+### Removed
+- Removed experimental `\DocumentMetadata` block from `presentation.tex` (caused CI build failures with Ubuntu TeX Live packages; LuaLaTeX still used for accessibility)
+
 ## [1.0.4] - 2025-10-20
 
 ### Added
