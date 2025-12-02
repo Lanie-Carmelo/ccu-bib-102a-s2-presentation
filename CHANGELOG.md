@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-12-01
+
+### Added
+- Added `build` target to create PDF, HTML, and DOCX versions in one command
+- Added `view` as alias for `view-presentation`
+- Added `submissions` as alias for `submissions-presentation`
+- Added `html` target to build HTML version using Pandoc
+- Added `docx` target to build DOCX version using Pandoc
+- Added `lint` target to run chktex on presentation files
+- Added `status` target to show output file information
+- Added `quick` target for fast single-pass builds during development
+- Added `watch` target to auto-rebuild on file changes
+- Added `check` target to display PDF metadata and file info
+
+### Changed
+- Updated Makefile to be presentation-only (removed paper-specific targets)
+- Added `CSL_FILE` and `LUA_FILTER` variables for maintainability
+- Updated `help` target to reflect all available presentation targets
+- Updated README.md to reflect presentation-only targets and remove paper references
+- Made `view` target cross-platform (works on WSL, Linux, and macOS)
+- Updated `.github/workflows/build.yml` to use presentation targets instead of paper targets
+
+### Removed
+- Removed experimental `\DocumentMetadata` block from `presentation.tex` (caused CI build failures with Ubuntu TeX Live packages; LuaLaTeX still used for accessibility)
+
 ## [1.0.4] - 2025-10-20
 
 ### Added
@@ -83,7 +108,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Presentation template maintains same accessibility standards as paper template
 - Both templates can coexist in same repository with shared bibliography
 
-[Unreleased]: https://github.com/Lanie-Carmelo/latex-apa7-presentation-template/compare/v1.0.4...HEAD
+[Unreleased]: https://github.com/Lanie-Carmelo/latex-apa7-presentation-template/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Lanie-Carmelo/latex-apa7-presentation-template/compare/v1.0.4...v1.1.0
 [1.0.4]: https://github.com/Lanie-Carmelo/latex-apa7-presentation-template/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/Lanie-Carmelo/latex-apa7-presentation-template/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/Lanie-Carmelo/latex-apa7-presentation-template/compare/v1.0.1...v1.0.2

@@ -62,32 +62,25 @@ The provided `Makefile` automates compilation of presentations and papers.
 | `presentation`           | Builds standard presentation slides (no notes visible).                     |
 | `presentation-notes`     | Builds presentation with notes visible below each slide (for rehearsal).    |
 | `presentation-handout`   | Builds handout version (4 slides per page).                                 |
-| `view-presentation`      | Opens the presentation PDF in your default viewer.                          |
-| `submissions-presentation` | Copies presentation to `submissions/` folder with timestamp.              |
-
-### Paper Targets
-
-| Target        | Description                                                                 |
-|---------------|-----------------------------------------------------------------------------|
-| `pdf`         | Compiles the LaTeX document into a tagged, accessible PDF using LuaLaTeX.   |
-| `pdf-pandoc`  | Generates a PDF using Pandoc (alternative method).                          |
-| `html`        | Converts the LaTeX document to HTML using Pandoc with APA citation styling. |
-| `docx`        | Converts the LaTeX document to DOCX using Pandoc.                           |
+| `html`                   | Converts the presentation to HTML using Pandoc with APA citation styling.   |
+| `docx`                   | Converts the presentation to DOCX using Pandoc.                             |
+| `view` or `view-presentation` | Opens the presentation PDF in your default viewer.                     |
+| `submissions` or `submissions-presentation` | Copies presentation to `submissions/` folder with timestamp. |
 
 ### Utility Targets
 
 | Target        | Description                                                                 |
 |---------------|-----------------------------------------------------------------------------|
-| `lint`        | Runs `chktex` and checks `.log` for missing citations or references.        |
-| `check`       | Displays metadata and integrity info for the compiled PDF.                  |
-| `view`        | Opens the paper PDF in your default Windows viewer (e.g., Acrobat).         |
-| `refresh`     | Reopens the PDF to simulate a manual refresh.                               |
-| `build`       | Runs `lint`, compiles the PDF, and opens it—ideal for final review.         |
-| `watch`       | Watches for changes to `.tex` or `.bib` and rebuilds automatically.         |
-| `submissions` | Copies the final paper PDF to a `submissions/` folder with a timestamp.     |
+| `all`         | Builds all presentation versions (PDF, notes, handout).                     |
+| `build`       | Builds PDF, HTML, and DOCX versions.                                        |
+| `quick`       | Quick single-pass build (no biber, faster iteration).                       |
+| `watch`       | Watches for file changes and auto-rebuilds.                                 |
+| `check`       | Shows PDF metadata and file info.                                           |
+| `lint`        | Runs `chktex` on presentation files.                                        |
 | `status`      | Lists output file sizes and last modified times.                            |
-| `clean`       | Removes LaTeX build artifacts and the output directory.                     |
+| `clean`       | Removes LaTeX build artifacts.                                              |
 | `distclean`   | Removes all generated files, including outputs and submissions.             |
+| `help`        | Shows all available targets.                                                |
 
 To use a target, run:
 
@@ -105,17 +98,8 @@ All outputs are placed in the `output/` directory. Archived PDFs are stored in `
 
 ### Manual Build Steps
 
-If you are not using the Makefile, compile your documents with:
+If you are not using the Makefile, compile your presentations with:
 
-**For papers (main.tex):**
-```sh
-lualatex main.tex
-biber main
-lualatex main.tex
-lualatex main.tex
-```
-
-**For presentations (presentation.tex):**
 ```sh
 lualatex presentation.tex
 biber presentation
@@ -129,7 +113,7 @@ lualatex presentation.tex
 
 This template works with Overleaf:
 
-- Upload all files (`main.tex`, `references.bib`, etc.) to your Overleaf project.
+- Upload all files (`presentation.tex`, `references.bib`, etc.) to your Overleaf project.
 - In Overleaf, set the bibliography backend to **biber** (Menu → Settings → Compiler → Biber).
 - Overleaf automatically runs the correct sequence (`lualatex → biber → lualatex → lualatex`).
 - You can manage your bibliography in `references.bib` as usual.
@@ -151,7 +135,7 @@ You can use Zotero to manage your references and export them to BibLaTeX format:
 
 ## Customization
 
-- Update the document metadata in `main.tex` (`\title`, `\author`, etc.).
+- Update the presentation metadata in `presentation.tex` (`\title`, `\author`, etc.).
 - Use the `biblatex` options and APA formatting as needed.
 - Modify the Makefile to suit your workflow or add new targets.
 
@@ -189,11 +173,14 @@ MIT License.
 ## File Structure
 
 ```
-├── main.tex              # Main LaTeX document
+├── presentation.tex      # Main Beamer presentation
+├── presentation-notes.tex # Wrapper for notes version
+├── presentation-handout.tex # Wrapper for handout version
 ├── references.bib        # Bibliography database
 ├── apa.csl              # APA 7 citation style for Pandoc
 ├── Makefile             # Build automation
 ├── add-refs-heading.lua # Pandoc filter for references heading
+├── images/              # Image assets for presentation
 ├── .gitignore           # Git ignore patterns
 ├── README.md            # This file
 ├── CONTRIBUTING.md      # Contribution guidelines
@@ -205,24 +192,23 @@ MIT License.
 
 If you use this template for your academic work, consider acknowledging it:
 
-**Option 1: In your paper's acknowledgments (informal):**
-> This paper was formatted using the APA 7 Student Paper LaTeX Template (v1.2.0) by Lanie Molinar Carmelo, available at https://github.com/Lanie-Carmelo/APA-7-Student-Paper-Template
+**Option 1: In your presentation's acknowledgments (informal):**
+> This presentation was formatted using the APA 7 Beamer Presentation Template by Lanie Molinar Carmelo, available at https://github.com/Lanie-Carmelo/ccu-bib-102a-s2-presentation
 
 **Option 2: In technical documentation or derivative works:**
 ```bibtex
-@misc{carmelo2025apa7template,
+@misc{carmelo2025apa7beamer,
   author = {Carmelo, Lanie Molinar},
-  title = {APA 7 Student Paper LaTeX Template},
+  title = {Accessible APA 7 Beamer Presentation Template},
   year = {2025},
   publisher = {GitHub},
   journal = {GitHub repository},
-  howpublished = {\url{https://github.com/Lanie-Carmelo/APA-7-Student-Paper-Template}},
-  note = {Version 1.2.0}
+  howpublished = {\url{https://github.com/Lanie-Carmelo/ccu-bib-102a-s2-presentation}}
 }
 ```
 
 **Option 3: For derivative templates:**
-- Keep the version header in `main.tex` intact
+- Keep the version header in `presentation.tex` intact
 - Document your changes in your own CHANGELOG
 - Link back to this repository in your README
 - Consider contributing improvements back via pull request
@@ -233,4 +219,3 @@ If you use this template for your academic work, consider acknowledging it:
 - Supports ongoing development and maintenance
 - Acknowledges accessibility advocacy in academic publishing
 - Enables tracking of template usage and impact
-# Test
