@@ -45,7 +45,7 @@ jobs:
           fc-list | grep -i "times new roman" || echo "Warning: Times New Roman not found"
 
       - name: Cache LaTeX aux files
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             *.aux
